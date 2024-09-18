@@ -1,0 +1,26 @@
+#map { height: 250px; }
+
+body
+{
+    background-color: whitesmoke;
+}
+
+.h1
+{
+    font-size: xx-large;
+    font-weight: bold;
+    font-variant: small-caps;
+}
+
+.ul
+{
+    font-size: larger;
+    font-variant: small-caps;
+}
+
+.ul li{display: table;}
+
+.ul li:hover
+{
+    font-weight: bold;
+}
