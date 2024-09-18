@@ -6,38 +6,39 @@
         <meta name="author" content="Alejandra Chaves">
         <meta name="author" content="Trasti Gonzalez">
         <meta name="author" content="David Gamiz">
-        <link rel="icon" type="image/x-icon" href="/Images/Logo_Pagina.png">
+        <link rel="icon" type="image/x-icon" href="/Images/nasa-logo.svg">
         <link rel="stylesheet" href="reset.css">
         <link rel="stylesheet" href="style.css">
         <script type="text/javascript" src="script.js"></script>
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+        crossorigin=""/>
+        <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+        crossorigin=""></script>
         <title>Initial Evaluation</title>
     </head>
     <body>
         <header>
             <div class="title"> Titulo </div>
             <div class="home"> Inicio </div>
-            <div > Descripciones </div>
+            <div> Descripciones </div>
         </header>
         
         <main>
             <div class="search"> Buscador </div>
-            <div>
-                <ul class="categories">
 
-                </ul>
+            <div>
+                <h1 class="h1">Categories: </h1>
+                <ul class="categories ul"></ul>
             </div>
-            <div> <!--Desplegable segun el desastre, ej, le das clic a volcanes, te los describe, closed o no (si el evento ha terminado), categorias del evento, mas informacion del evento, unidades de medicion, Texto lago que explicara la forma de actuar, por ejemplo los procedimientos de evacuacion -->
-                <ul>
-                    <li>Description</li>
-                    <li>Closed</li>
-                    <li>Categories</li>
-                    <li>Sources</li>
-                    <li>Geometry</li>
-                    <li>MagintudeValue_Unit_Description</li>
-                    <li>Forma de Actuar</li>
-                </ul>
+
+            <div>
+                <!-- categories' divs' characteristics -->
             </div>
-            <div class="map"> Mapa </div>
+            
+            <div class="map" id="map"></div>
+
         </main>
 
         <footer>
