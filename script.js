@@ -64,7 +64,7 @@ const categoriesFetch = async(data) => {
             Array.from(document.getElementsByTagName('img')).forEach(i => {
                 if (i.alt.includes('mapIcon'))
                 {
-                    if (i.src.includes(categoriesIconsData[e.id])) {i.style.display = 'block'}
+                    if (i.src.includes(categoriesIconsData[e.id].id)) {i.style.display = 'block'}
                     else {i.style.display = 'none'}
                 /*if (i.alt.includes('mapIcon'))
                     {
