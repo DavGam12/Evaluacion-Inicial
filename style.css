@@ -40,18 +40,18 @@ body
     flex-direction: column;
 }
 
-.category-box{
+.general-box li{
     padding: 0.75% 2%;
     display: flex;
 }
 
-h3{
+.general-box h3{
     font-size: large;
     font-weight: bold;
     font-variant: small-caps;
 }
 
-p{
+.general-box p{
     margin-left: 2%;
     font-size: large;
     font-variant: small-caps;
