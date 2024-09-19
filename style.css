@@ -24,3 +24,66 @@ body
 {
     font-weight: bold;
 }
+
+.event-info{
+    display: flex;
+    list-style: none;
+    padding-left: 40%;
+    padding-right: 5%;
+}
+
+.general-box {
+    width: 100%;
+    height: 100%;
+    border: 5px solid black;
+    display: flex;
+    flex-direction: column;
+}
+
+.category-box{
+    padding: 0.75% 2%;
+    display: flex;
+}
+
+h3{
+    font-size: large;
+    font-weight: bold;
+    font-variant: small-caps;
+}
+
+p{
+    margin-left: 2%;
+    font-size: large;
+    font-variant: small-caps;
+}
+
+/* Hide/Show Icons */ 
+.hide{display: none;}
+.show{display: flex;}
+
+.droughtHide{display: none;}
+.droughtShow{display: block;}
+.dustHazeHide{display: none;}
+.dustHazeShow{display: block;}
+.earthquakesHide{display: none;}
+.earthquakesShow{display: block;}
+.floodsHide{display: none;}
+.floodsShow{display: block;}
+.landslidesHide{display: none;}
+.landslidesShow{display: block;}
+.manmadeHide{display: none;}
+.manmadeShow{display: block;}
+.seaLakeIceHide{display: none;}
+.seaLakeIceShow{display: block;}
+.severeStormsHide{display: none;}
+.severeStormsShow{display: block;}
+.snowHide{display: none;}
+.snowShow{display: block;}
+.tempExtremesHide{display: none;}
+.tempExtremesShow{display: block;}
+.volcanoesHide{display: none;}
+.volcanoesShow{display: block;}
+.waterColorHide{display: none;}
+.waterColorShow{display: block;}
+.wildfiresHide{display: none;}
+.wildfiresShow{display: block;}
