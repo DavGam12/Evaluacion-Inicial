@@ -1,0 +1,54 @@
+{
+  "drought": {
+	"id": "drought",
+	"url": "/Images/drought.png"
+  },
+  "dustHaze": {
+	"id": "dustHaze",
+	"url": "/Images/dustHaze.png"
+  },
+  "earthquakes": {
+	"id": "earthquakes",
+	"url": "/Images/earthquakes.png"
+  },
+  "floods": {
+	"id": "floods",
+	"url": "/Images/floods.png"
+  },
+  "landslides": {
+	"id": "landslides",
+	"url": "/Images/landslides.png"
+  },
+  "manmade": {
+	"id": "manmade",
+	"url": "/Images/manmade.png"
+  },
+  "seaLakeIce": {
+	"id": "seaLakeIce",
+	"url": "/Images/seaLakeIce.png"
+  },
+  "severeStorms": {
+	"id": "severeStorms",
+	"url": "/Images/severeStorms.png"
+  },
+  "snow": {
+	"id": "snow",
+	"url": "/Images/snow.png"
+  },
+  "tempExtremes": {
+	"id": "tempExtremes",
+	"url": "/Images/tempExtremes.png"
+  },
+  "volcanoes": {
+	"id": "volcanoes",
+	"url": "/Images/volcanoes.png"
+  },
+  "waterColor": {
+	"id": "waterColor",
+	"url": "/Images/waterColor.png"
+  },
+  "wildfires": {
+	"id": "wildfires",
+	"url": "/Images/wildfires.png"
+  }
+}
