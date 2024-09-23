@@ -30,11 +30,11 @@ document.addEventListener("DOMContentLoaded", () => {
     }).addTo(map);
     L.marker([41.669841685814625, -0.8788074741911481]).addTo(map).bindPopup('San Valero Is Here')
 
-    deployment.addEventListener("click", () => {
+    deployment.children[0].addEventListener("click", () => {
         Array.from(deployment.children).forEach(child => {
             if (child.tagName.toLowerCase().includes('li'))
             {
-                if (child.style.display == 'none') {child.style.display = 'block'}
+                if (child.style.display != 'block') {child.style.display = 'block'}
                 else {child.style.display = 'none'}
             }
         })

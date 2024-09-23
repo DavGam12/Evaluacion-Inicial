@@ -23,9 +23,11 @@ body
     align-items: center;
     flex-direction: column;
 }
+.categories h3{cursor: pointer;}
 .categories li
 {
     display: none;
+    cursor: pointer;
 }
 
 .h3{
