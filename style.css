@@ -2,7 +2,37 @@
 
 body
 {
-    background-color: whitesmoke;
+    background-color: #B0E0E6;
+}
+.header
+{
+    background-color: #9370DB;
+    display: grid;
+    grid-template-areas: 
+    "logo search categories ";
+}
+
+.header-logo{grid-area: "logo";}
+
+.search {grid-area: "search";}
+
+.categories
+{
+    grid-area: "categories";
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+.categories li
+{
+    display: none;
+}
+
+.h3{
+    font-size: xx-large;
+    font-weight: bold;
+    font-variant: small-caps;
+    color: #e6e6fd;
 }
 
 .h1
@@ -10,6 +40,7 @@ body
     font-size: xx-large;
     font-weight: bold;
     font-variant: small-caps;
+    color: #1C1C5A;
 }
 
 .ul
@@ -24,6 +55,7 @@ body
 {
     font-weight: bold;
     cursor: pointer;
+    color: #1C1C5A;
 }
 
 .event-info{
@@ -34,12 +66,6 @@ body
     width: 100%;
 }
 
-.main-box
-{
-    display: flex;
-    align-items: flex-end;
-}
-.category-box{width: 40%;}
 .general-box div{width: 60%;}
 
 .general-box {
@@ -58,16 +84,16 @@ body
     width: 100%;
 }
 
-h3{
-    font-size: large;
-    font-weight: bold;
-    font-variant: small-caps;
-}
-
 p{
     margin-left: 2%;
     font-size: large;
     font-variant: small-caps;
+    color: #1C1C5A;
+}
+
+.footer
+{
+    background-color: #9370DB;
 }
 
 /* Hide/Show */ 

@@ -6,7 +6,7 @@
         <meta name="author" content="Alejandra Chaves">
         <meta name="author" content="Trasti Gonzalez">
         <meta name="author" content="David Gamiz">
-        <link rel="icon" type="image/x-icon" href="/Images/Logo_Pagina.png">
+        <link rel="icon" type="image/x-icon" href="./Images/Logo_Pagina.png">
         <link rel="stylesheet" href="reset.css">
         <link rel="stylesheet" href="style.css">
         <script type="text/javascript" src="script.js"></script>
@@ -19,20 +19,18 @@
         <title>Initial Evaluation</title>
     </head>
     <body>
-        <header>
-            <div class="title"> Titulo </div>
-            <div class="home"> Inicio </div>
-            <div> Descripciones </div>
+        <header class="header">
+            <div class="header-logo">
+                <img class="img-logo" src="./Images/Logo.png" alt="Logo">
+            </div>
+            <div class="search"> <h3 class="h3">Search</h3> </div>
+
+            <div class="categories">
+                <h3 class="h3">Categories</h3>
+            </div>
         </header>
         
         <main>
-            <div class="search"> Buscador </div>
-            <div class="main-box">
-                <div class="category-box">
-                    <h1 class="h1">Categories: </h1>
-                    <ul class="categories ul"></ul>
-                </div>
-
                 <div class="event-info">
                     <!--
                     <ul class="general-box">
@@ -50,8 +48,8 @@
 
         </main>
 
-        <footer>
-            <div class="appi"> Enlace a la API EONET </div>
+        <footer class="footer">
+            <div class="appi"><a href="https://eonet.gsfc.nasa.gov/what-is-eonet">API EONET</a> </div>
         </footer>
     </body>
 </html>

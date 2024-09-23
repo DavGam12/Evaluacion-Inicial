@@ -20,6 +20,7 @@ const categories =
 
 document.addEventListener("DOMContentLoaded", () => {
     console.log("DOM content loaded")
+    const deployment = document.getElementsByClassName('categories')[0]
 
 
     map = L.map('map').setView([41.669841685814625, -0.8788074741911481], 10);
@@ -29,7 +30,16 @@ document.addEventListener("DOMContentLoaded", () => {
     }).addTo(map);
     L.marker([41.669841685814625, -0.8788074741911481]).addTo(map).bindPopup('San Valero Is Here')
 
-    
+    deployment.addEventListener("click", () => {
+        Array.from(deployment.children).forEach(child => {
+            if (child.tagName.toLowerCase().includes('li'))
+            {
+                if (child.style.display == 'none') {child.style.display = 'block'}
+                else {child.style.display = 'none'}
+            }
+        })
+    })
+
     fetchData()
 })
 
