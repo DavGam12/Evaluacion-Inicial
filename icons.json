@@ -1,54 +1,67 @@
 {
   "drought": {
 	"id": "drought",
-	"url": "/Images/drought.png"
+	"url": "/Images/drought.png",
+  "color": "rgb(190,200,0)"
   },
   "dustHaze": {
 	"id": "dustHaze",
-	"url": "/Images/dustHaze.png"
+	"url": "/Images/dustHaze.png",
+  "color": "rgb(100,100,100)"
   },
   "earthquakes": {
 	"id": "earthquakes",
-	"url": "/Images/earthquakes.png"
+	"url": "/Images/earthquakes.png",
+  "color": "rgb(130,40,40)"
   },
   "floods": {
 	"id": "floods",
-	"url": "/Images/floods.png"
+	"url": "/Images/floods.png",
+  "color": "rgb(60,60,255)"
   },
   "landslides": {
 	"id": "landslides",
-	"url": "/Images/landslides.png"
+	"url": "/Images/landslides.png",
+  "color": "rgb(200,200,200)"
   },
   "manmade": {
 	"id": "manmade",
-	"url": "/Images/manmade.png"
+	"url": "/Images/manmade.png",
+  "color": "rgb(130,150,155)"
   },
   "seaLakeIce": {
 	"id": "seaLakeIce",
-	"url": "/Images/seaLakeIce.png"
+	"url": "/Images/seaLakeIce.png",
+  "color": "rgb(0,150,200)"
   },
   "severeStorms": {
 	"id": "severeStorms",
-	"url": "/Images/severeStorms.png"
+	"url": "/Images/severeStorms.png",
+  "color": "rgb(25,25,25)"
   },
   "snow": {
 	"id": "snow",
-	"url": "/Images/snow.png"
+	"url": "/Images/snow.png",
+  "color": "rgb(0,200,200)"
   },
   "tempExtremes": {
 	"id": "tempExtremes",
-	"url": "/Images/tempExtremes.png"
+	"url": "/Images/tempExtremes.png",
+  "color": "rgb(120,0,120)"
   },
   "volcanoes": {
 	"id": "volcanoes",
-	"url": "/Images/volcanoes.png"
+	"url": "/Images/volcanoes.png",
+  "color": "rgb(150,0,0)"
   },
   "waterColor": {
 	"id": "waterColor",
-	"url": "/Images/waterColor.png"
+	"url": "/Images/waterColor.png",
+  "color": "rgb(0,120,120)"
   },
   "wildfires": {
 	"id": "wildfires",
-	"url": "/Images/wildfires.png"
+	"url": "/Images/wildfires.png",
+  "color": "rgb(255,0,0)"
   }
 }

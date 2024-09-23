@@ -1,21 +1,21 @@
 let map // mapX = y; mapY = x
 let categoriesIconsData
 const categories =
-[
-    "drought",
-    "dustHaze",
-    "earthquakes",
-    "floods",
-    "landslides",
-    "manmade",
-    "seaLakeIce",
-    "severeStorms",
-    "snow",
-    "tempExtremes",
-    "volcanoes",
-    "waterColor",
-    "wildfires"   
-]
+{
+    "drought": false,
+    "dustHaze": false,
+    "earthquakes": false,
+    "floods": false,
+    "landslides": false,
+    "manmade": false,
+    "seaLakeIce": false,
+    "severeStorms": false,
+    "snow": false,
+    "tempExtremes": false,
+    "volcanoes": false,
+    "waterColor": false,
+    "wildfires": false
+}
 
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -33,6 +33,25 @@ document.addEventListener("DOMContentLoaded", () => {
     fetchData()
 })
 
+const HideShowIcons = (cat, img, catTitle) => {
+    if (categories[cat.id])
+        {
+            img.style.display = 'block'
+            catTitle.style.color = categoriesIconsData[cat.id].color
+            catTitle.style.fontWeight = 'bold'
+        }
+    else
+        {
+            img.style.display = 'none'
+            catTitle.style.color = 'rgb(0,0,0)'
+            catTitle.style.fontWeight = 'normal'
+        }
+}
+const HideShowIconsAll = (cat, img) => {
+    Array.from(categories).forEach(e => {
+        
+    })
+}
 
 /* FETCH */
 
@@ -61,24 +80,11 @@ const categoriesFetch = async(data) => {
         const categoryLi = categoriesUl.appendChild(document.createElement("li"))
         categoryLi.textContent = e.title
         categoryLi.addEventListener("click", () => {
+            categories[e.id] = !categories[e.id]
             Array.from(document.getElementsByTagName('img')).forEach(i => {
                 if (i.alt.includes('mapIcon'))
                 {
-                    if (i.src.includes(categoriesIconsData[e.id].id)) {i.style.display = 'block'}
-                    else {i.style.display = 'none'}
-                /*if (i.alt.includes('mapIcon'))
-                    {
-                        categories.forEach(cat => {
-                            if (cat.includes(e.id))
-                                {
-                                    i.style.display = 'block'
-                                }
-                            else
-                                {
-                                    i.style.display = 'none'
-                                }
-                        })
-                    }*/
+                    HideShowIcons(e, i, categoryLi)
                 }
             })
         })
