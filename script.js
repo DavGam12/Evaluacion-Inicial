@@ -17,25 +17,33 @@ const categories =
     "wildfires": false
 }
 
-
-const date = new Date
-
-const currentDay = date.getDate()
-const currentMonth = date.getMonth()
-const currentYear = date.getFullYear()
-
-
-
 document.addEventListener("DOMContentLoaded", () => {
     console.log("DOM content loaded")
 
     map = L.map('map').setView([41.669841685814625, -0.8788074741911481], 10);
-
-    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-    }).addTo(map);
+    
     L.marker([41.669841685814625, -0.8788074741911481]).addTo(map).bindPopup('San Valero Is Here')
 
+    osmLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '© OpenStreetMap contributors'
+    });
+
+    topoLayer = L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
+        attribution: '© OpenTopoMap contributors'
+    });
+
+    esriLayer = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}', {
+        attribution: 'Tiles &copy; Esri'
+    });
+
+    baseLayers = {
+    "Open StreetMap": osmLayer,
+    "Open TopoMap": topoLayer,
+    "Open ESRI Street Map": esriLayer
+    };
+
+    osmLayer.addTo(map);
+    L.control.layers(baseLayers).addTo(map);
 
     fetchData()
 })
@@ -47,9 +55,6 @@ const HideShowIcons = (cat, img) => {
         Object.entries(categories).forEach(e => {
             if (!e[1] && img.src.includes(e[0])) {img.style.display = 'none'}
         })
-        let active = 13
-        Object.entries(categories).forEach(e => {if (!e[1]) {active--}})
-        if (active === 0) {img.style.display = 'block'}
     }
 }
 
@@ -203,7 +208,6 @@ const eventsFetch = async(data) => {
         url.appendChild(document.createElement('h3')).textContent = 'Source'
         const a = url.appendChild(document.createElement('p'))
         a.appendChild(document.createElement('a')).textContent = e.sources[0].url
-        a.target = 'blank'
         a.childNodes[0].href = e.sources[0].url
 
 
