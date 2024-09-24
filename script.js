@@ -18,6 +18,14 @@ const categories =
 }
 
 
+const date = new Date
+
+const currentDay = date.getDate()
+const currentMonth = date.getMonth()
+const currentYear = date.getFullYear()
+
+
+
 document.addEventListener("DOMContentLoaded", () => {
     console.log("DOM content loaded")
 
