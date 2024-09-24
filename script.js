@@ -20,8 +20,6 @@ const categories =
 
 document.addEventListener("DOMContentLoaded", () => {
     console.log("DOM content loaded")
-    const deployment = document.getElementsByClassName('categories')[0]
-
 
     map = L.map('map').setView([41.669841685814625, -0.8788074741911481], 10);
 
@@ -30,38 +28,20 @@ document.addEventListener("DOMContentLoaded", () => {
     }).addTo(map);
     L.marker([41.669841685814625, -0.8788074741911481]).addTo(map).bindPopup('San Valero Is Here')
 
-    deployment.children[0].addEventListener("click", () => {
-        Array.from(deployment.children).forEach(child => {
-            if (child.tagName.toLowerCase().includes('li'))
-            {
-                if (child.style.display != 'block') {child.style.display = 'block'}
-                else {child.style.display = 'none'}
-            }
-        })
-    })
 
     fetchData()
 })
 
-const HideShowIcons = (cat, img, catTitle) => {
-    if (categories[cat.id])
-        {
-            img.style.display = 'block'
-            catTitle.style.color = categoriesIconsData[cat.id].color
-            catTitle.style.fontWeight = 'bold'
-        }
+const HideShowIcons = (cat, img) => {
+    if (img.src.includes(categoriesIconsData[cat.id].url) && categories[cat.id]) {img.style.display = 'block'}
     else
-        {
-            img.style.display = 'none'
-            catTitle.style.color = 'rgb(0,0,0)'
-            catTitle.style.fontWeight = 'normal'
-        }
+    {
+        Object.entries(categories).forEach(e => {
+            if (!e[1] && img.src.includes(e[0])) {img.style.display = 'none'}
+        })
+    }
 }
-const HideShowIconsAll = (cat, img) => {
-    Array.from(categories).forEach(e => {
-        
-    })
-}
+
 
 /* FETCH */
 
@@ -85,18 +65,40 @@ const fetchData = async() => {
 }
 
 const categoriesFetch = async(data) => {
+
+    const categoriesUl = document.getElementsByClassName("desplegable")[0]
+
     Array.from(data.categories).forEach(e => {
-        const categoriesUl = document.getElementsByClassName("categories")[0]
         const categoryLi = categoriesUl.appendChild(document.createElement("li"))
         categoryLi.textContent = e.title
         categoryLi.addEventListener("click", () => {
             categories[e.id] = !categories[e.id]
+            if (categories[e.id])
+                {
+                    categoryLi.style.color = categoriesIconsData[e.id].color
+                    categoryLi.style.fontWeight = 'bold'
+                }
+                else
+                {
+                    categoryLi.style.color = '#e6e6fd'
+                    categoryLi.style.fontWeight = 'normal'
+                }
             Array.from(document.getElementsByTagName('img')).forEach(i => {
                 if (i.alt.includes('mapIcon'))
                 {
-                    HideShowIcons(e, i, categoryLi)
+                    HideShowIcons(e, i)
                 }
             })
+        })
+    })
+
+    categoriesUl.parentElement.children[0].addEventListener("click", () => {
+        Array.from(categoriesUl.children).forEach(child => {
+            if (child.tagName.toLowerCase().includes('li'))
+            {
+                if (child.style.display != 'block') {child.style.display = 'block'}
+                else {child.style.display = 'none'}
+            }
         })
     })
 }
