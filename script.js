@@ -39,6 +39,9 @@ const HideShowIcons = (cat, img) => {
         Object.entries(categories).forEach(e => {
             if (!e[1] && img.src.includes(e[0])) {img.style.display = 'none'}
         })
+        let active = 13
+        Object.entries(categories).forEach(e => {if (!e[1]) {active--}})
+        if (active === 0) {img.style.display = 'block'}
     }
 }
 
@@ -192,6 +195,7 @@ const eventsFetch = async(data) => {
         url.appendChild(document.createElement('h3')).textContent = 'Source'
         const a = url.appendChild(document.createElement('p'))
         a.appendChild(document.createElement('a')).textContent = e.sources[0].url
+        a.target = 'blank'
         a.childNodes[0].href = e.sources[0].url
 
 
