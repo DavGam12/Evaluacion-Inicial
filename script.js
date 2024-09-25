@@ -17,6 +17,18 @@ const categories =
     "wildfires": false
 }
 
+let events = []
+
+
+const date = new Date
+
+const currentDay = date.getDate()
+const currentMonth = date.getMonth()+1
+const currentYear = date.getFullYear()
+
+
+let submitFilterButton
+
 document.addEventListener("DOMContentLoaded", () => {
     console.log("DOM content loaded")
 
@@ -45,6 +57,45 @@ document.addEventListener("DOMContentLoaded", () => {
     osmLayer.addTo(map);
     L.control.layers(baseLayers).addTo(map);
 
+
+    submitFilterButton = document.getElementById('submitFilter')
+    const searchDateStart = document.getElementById('search_date_start')
+    const searchDateEnd = document.getElementById('search_date_end')
+
+    if (currentMonth>9)
+        {
+            if (currentDay>9) {searchDateEnd.max = `${currentYear}-${currentMonth}-${currentDay}`}
+            else {searchDateEnd.max = `${currentYear}-${currentMonth}-0${currentDay}`}
+        }
+    else
+    {
+        if (currentDay>9) {searchDateEnd.max = `${currentYear}-0${currentMonth}-${currentDay}`}
+        else {searchDateEnd.max = `${currentYear}-0${currentMonth}-0${currentDay}`}
+    }
+
+    submitFilterButton.addEventListener("click", () => {
+        if (searchDateStart.value != '' && searchDateEnd.value != '')
+        {
+            let active = 13
+            Object.entries(categories).forEach(e => {if (!e[1]) {active--}})
+            Array.from(events).forEach(e => {
+                const currentEventDate = e.event.geometry[0].date.split('T')[0]
+                
+                if ((currentEventDate >= searchDateStart.value && currentEventDate <= searchDateEnd.value) && (categories[e.event.categories[0].id] || active === 0))
+                {
+                    HideShowIcons(e.event.categories[0], e.img._icon)
+                    e.img._icon.style.display = 'block'
+                }
+                else
+                {
+                    e.img._icon.style.display = 'none'
+                }
+            })
+        }
+    })
+
+
+
     fetchData()
 })
 
@@ -55,6 +106,9 @@ const HideShowIcons = (cat, img) => {
         Object.entries(categories).forEach(e => {
             if (!e[1] && img.src.includes(e[0])) {img.style.display = 'none'}
         })
+        let active = 13
+        Object.entries(categories).forEach(e => {if (!e[1]) {active--}})
+        if (active === 0) {img.style.display = 'block'}
     }
 }
 
@@ -99,12 +153,8 @@ const categoriesFetch = async(data) => {
                     categoryLi.style.color = '#e6e6fd'
                     categoryLi.style.fontWeight = 'normal'
                 }
-            Array.from(document.getElementsByTagName('img')).forEach(i => {
-                if (i.alt.includes('mapIcon'))
-                {
-                    HideShowIcons(e, i)
-                }
-            })
+            Array.from(document.getElementsByTagName('img')).filter((i) => i.alt.includes('mapIcon')).forEach(i => {HideShowIcons(e, i)})
+            submitFilterButton.click()
         })
     })
 
@@ -120,7 +170,7 @@ const categoriesFetch = async(data) => {
 }
 
 const eventsFetch = async(data) => {
-    Array.from(data.events).forEach(e => {
+    Array.from(data.events).forEach((e, index) => {
         console.log(e);
 
         const iconSize = [15, 15]
@@ -208,6 +258,7 @@ const eventsFetch = async(data) => {
         url.appendChild(document.createElement('h3')).textContent = 'Source'
         const a = url.appendChild(document.createElement('p'))
         a.appendChild(document.createElement('a')).textContent = e.sources[0].url
+        a.target = 'blank'
         a.childNodes[0].href = e.sources[0].url
 
 
@@ -227,6 +278,11 @@ const eventsFetch = async(data) => {
                     mainBox.classList.add("show")
                 })
                 iconMarker._icon.alt = 'mapIcon'
+                events[index] =
+                {
+                    "event": e,
+                    "img": iconMarker
+                }
             }
         })
     })

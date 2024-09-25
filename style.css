@@ -46,7 +46,7 @@ p{
     background-color:#1c1c5ac2;
     cursor: pointer;
     position: absolute;
-    z-index: 401;
+    z-index: 1001;
 }
 
 .categories li {
