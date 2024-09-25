@@ -24,15 +24,17 @@
                 <img class="img-logo" src="./Images/Logo.png" alt="Logo">
             </div>
             <div class="search">
-                <h3 class="h3"><input type="date" id="search_date" name="searchDate" max="DateMax"/></h3>
-                <p><button>Submit</button></p>
-                <h3 class="h3"><input type="date" id="search_date2" name="searchDate2" max="DateMax"/></h3>
+                <h3 class="h3"><input type="date" id="search_date_start" name="searchDateStart"/></h3>
+                <p><button id="submitFilter">Submit</button></p>
+                <h3 class="h3"><input type="date" id="search_date_end" name="searchDateEnd"/></h3>
             </div>
 
             <div class="categories">
                 <h3 class="h3">Categories</h3>
                 <ul class="desplegable"></ul>
             </div>
+
+            <div><button id="removeAllFilters">Remove All Filters</button></div>
         </header>
         
         <main class="main">

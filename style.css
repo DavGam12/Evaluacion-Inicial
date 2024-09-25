@@ -1,3 +1,5 @@
+img{width: 100%;}
+
 body { background-color: #B0E0E6; }
 
 
@@ -53,6 +55,7 @@ p{
     padding: 10px;
     border-bottom: 1px solid #e6e6fd;
     display: none;
+    align-items: center;
     color: #e6e6fd;
 }
 
@@ -60,6 +63,13 @@ p{
 { 
     background-color: #e6e6fd;
     color: #000;
+}
+
+.categoryImg
+{
+    width: 20px;
+    height: 20px;
+    padding-right: 10%;
 }
 
 .h3
