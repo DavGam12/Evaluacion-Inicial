@@ -61,6 +61,7 @@ document.addEventListener("DOMContentLoaded", () => {
     submitFilterButton = document.getElementById('submitFilter')
     const searchDateStart = document.getElementById('search_date_start')
     const searchDateEnd = document.getElementById('search_date_end')
+    const removeAllFilterButtom = document.getElementById('removeAllFilters')
 
     if (currentMonth>9)
         {
@@ -92,6 +93,18 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
             })
         }
+    })
+
+    removeAllFilterButtom.addEventListener("click", () => {
+        Object.keys(categories).forEach(k => {categories[k] = false})
+        console.log(categories);
+        searchDateStart.value = ''
+        searchDateEnd.value = ''
+        Array.from(document.getElementsByClassName('categories')[0].getElementsByTagName('li')).forEach(e => {
+            e.style.color = '#e6e6fd'
+            e.style.fontWeight = 'normal'
+        })
+        Array.from(events).forEach(e => {e.img._icon.style.display = 'block'})
     })
 
 
@@ -136,11 +149,16 @@ const fetchData = async() => {
 
 const categoriesFetch = async(data) => {
 
-    const categoriesUl = document.getElementsByClassName("desplegable")[0]
+    const categoriesUl = document.getElementsByClassName('desplegable')[0]
 
     Array.from(data.categories).forEach(e => {
-        const categoryLi = categoriesUl.appendChild(document.createElement("li"))
-        categoryLi.textContent = e.title
+        const categoryLi = categoriesUl.appendChild(document.createElement('li'))
+        const categoryImgDiv = categoryLi.appendChild(document.createElement('div'))
+        categoryImgDiv.classList.add('categoryImg')
+        const categoryImg = categoryImgDiv.appendChild(document.createElement('img'))
+        categoryImg.src = categoriesIconsData[e.id].url
+        const categoryLiSpan = categoryLi.appendChild(document.createElement('span'))
+        categoryLiSpan.textContent = e.title
         categoryLi.addEventListener("click", () => {
             categories[e.id] = !categories[e.id]
             if (categories[e.id])
@@ -162,7 +180,7 @@ const categoriesFetch = async(data) => {
         Array.from(categoriesUl.children).forEach(child => {
             if (child.tagName.toLowerCase().includes('li'))
             {
-                if (child.style.display != 'block') {child.style.display = 'block'}
+                if (child.style.display != 'flex') {child.style.display = 'flex'}
                 else {child.style.display = 'none'}
             }
         })
