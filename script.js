@@ -1,5 +1,6 @@
 let map // mapX = y; mapY = x
 let categoriesIconsData
+let currentLocData
 const categories =
 {
     "drought": false,
@@ -35,6 +36,83 @@ document.addEventListener("DOMContentLoaded", () => {
     map = L.map('map').setView([41.669841685814625, -0.8788074741911481], 10);
     
     L.marker([41.669841685814625, -0.8788074741911481]).addTo(map).bindPopup('San Valero Is Here')
+
+    map.on('click', async(ev) => {
+        await fetchWeather(ev.latlng.toString().split('(')[1].split(')')[0])
+        Array.from(document.getElementsByTagName('img')).filter((e) => e.alt === 'tempMarker').forEach(e => {e.remove();})
+
+        let currentPosIcon
+        if (currentLocData.error) {currentPosIcon = L.icon({iconUrl: './Images/close.png', iconSize: [40,40]})}
+        else
+        {
+            if (currentLocData.current.is_day === 1) {currentPosIcon = L.icon({iconUrl: './Images/day.png', iconSize: [40,40]})}
+            else {currentPosIcon = L.icon({iconUrl: './Images/night.png', iconSize: [40,40]})}
+        }
+        
+        if (currentLocData.error)
+            {
+                await L.marker(ev.latlng, {icon: currentPosIcon, alt: 'tempMarker'}).addTo(map)
+                .bindPopup(`This location isn't available`).openPopup()
+            }
+            else
+            {
+                await L.marker(ev.latlng, {icon: currentPosIcon, alt: 'tempMarker'}).addTo(map)
+                .bindPopup(`${currentLocData.location.name} [${ev.latlng.toString().split('(')[1].split(')')[0]}]`).openPopup()
+
+                const mainBox = document.getElementsByClassName("event-info")[0].appendChild(document.createElement("ul"))
+                mainBox.classList.add('general-box')
+                mainBox.classList.add("show")
+
+                const closeDiv = mainBox.appendChild(document.createElement('div'))
+                closeDiv.classList.add('close')
+                const closeImg = closeDiv.appendChild(document.createElement('img'))
+                closeImg.src = '/Images/close.png'
+                closeDiv.addEventListener('click', () => {
+                    closeDiv.parentElement.remove()
+                })
+        
+                const city = mainBox.appendChild(document.createElement('li'))
+                city.appendChild(document.createElement('h3')).textContent = 'City: '
+                city.appendChild(document.createElement('p')).textContent = currentLocData.location.name
+
+                const country = mainBox.appendChild(document.createElement('li'))
+                country.appendChild(document.createElement('h3')).textContent = 'Country: '
+                country.appendChild(document.createElement('p')).textContent = currentLocData.location.country
+
+                const coor = mainBox.appendChild(document.createElement('li'))
+                coor.appendChild(document.createElement('h3')).textContent = 'Coordinates: '
+                coor.appendChild(document.createElement('p')).textContent = `[${ev.latlng.toString().split('(')[1].split(')')[0]}]`
+
+                const localtime = mainBox.appendChild(document.createElement('li'))
+                localtime.appendChild(document.createElement('h3')).textContent = 'Localtime: '
+                localtime.appendChild(document.createElement('p')).textContent = currentLocData.location.localtime
+
+                const temperature = mainBox.appendChild(document.createElement('li'))
+                temperature.appendChild(document.createElement('h3')).textContent = 'Temperature: '
+                temperature.appendChild(document.createElement('p')).textContent = `${currentLocData.current.temp_c}ºC`
+
+                const feellikeTemperature = mainBox.appendChild(document.createElement('li'))
+                feellikeTemperature.appendChild(document.createElement('h3')).textContent = 'Feel like temperature: '
+                feellikeTemperature.appendChild(document.createElement('p')).textContent = `${currentLocData.current.feelslike_c}ºC`
+
+                const wind = mainBox.appendChild(document.createElement('li'))
+                wind.appendChild(document.createElement('h3')).textContent = 'Wind: '
+                wind.appendChild(document.createElement('p')).textContent = `${currentLocData.current.wind_kph} km/h`
+                
+                const windDir = mainBox.appendChild(document.createElement('li'))
+                windDir.appendChild(document.createElement('h3')).textContent = 'Wind direction: '
+                windDir.appendChild(document.createElement('p')).textContent = `${currentLocData.current.wind_kph} km/h`
+
+                const gust = mainBox.appendChild(document.createElement('li'))
+                gust.appendChild(document.createElement('h3')).textContent = 'Gust: '
+                gust.appendChild(document.createElement('p')).textContent = `${currentLocData.current.gust_kph} km/h`
+
+                const humidity = mainBox.appendChild(document.createElement('li'))
+                humidity.appendChild(document.createElement('h3')).textContent = 'Humidity: '
+                humidity.appendChild(document.createElement('p')).textContent = `${currentLocData.current.humidity}%`
+            }
+        console.log(ev.latlng);
+    })
 
     osmLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '© OpenStreetMap contributors'
@@ -131,6 +209,12 @@ const HideShowIcons = (cat, img) => {
 const categoriesURL = "https://eonet.gsfc.nasa.gov/api/v3/categories"
 const eventURL = "https://eonet.gsfc.nasa.gov/api/v3/events"
 const categoriesIconsURL = `${window.location.origin}/icons.json`
+
+const fetchWeather = async(coor) => {
+    const weatherURL = `https://api.weatherapi.com/v1/current.json?key=3212cc342f1b43fe9ab184207242509%20&q=${coor}`
+    const weatherRes = await fetch(weatherURL)
+    currentLocData = await weatherRes.json()
+}
 
 const fetchData = async() => {
     const [ categoriesRes, eventsRes, categoriesIconsRes ] = await Promise.all([fetch(categoriesURL), fetch(eventURL), fetch(categoriesIconsURL)])
@@ -251,6 +335,15 @@ const eventsFetch = async(data) => {
         const mainBox = document.getElementsByClassName("event-info")[0].appendChild(document.createElement("ul"))
         mainBox.classList.add('general-box')
         mainBox.classList.add("hide")
+
+        const closeDiv = mainBox.appendChild(document.createElement('div'))
+        closeDiv.classList.add('close')
+        const closeImg = closeDiv.appendChild(document.createElement('img'))
+        closeImg.src = '/Images/close.png'
+        closeDiv.addEventListener('click', () => {
+            closeDiv.parentElement.classList.remove("show")
+            closeDiv.parentElement.classList.add("hide")
+        })
 
         const category = mainBox.appendChild(document.createElement('li'))
         category.appendChild(document.createElement('h3')).textContent = 'Category'
