@@ -2,6 +2,23 @@ img{width: 100%;}
 
 body { background-color: #B0E0E6; }
 
+.h3
+{
+    font-size: xx-large;
+    font-weight: bold;
+    font-variant: small-caps;
+    color: #e6e6fd;
+}
+
+.h1
+{
+    font-size: xx-large;
+    font-weight: bold;
+    font-variant: small-caps;
+    color: #1C1C5A;
+}
+
+
 
 p{
     margin-left: 2%;
@@ -14,41 +31,52 @@ p{
 {
     background-color: #9370DB;
     display: grid;
-    grid-template-columns: 45% 25% 25%;
+    grid-template-columns: 2% 35% 35% 28%;
     grid-template-areas: 
-    "logo search categories ";
+    ". categories . logo";
     align-items: center;
+    justify-content: center;
 }
 
 .header-logo
 {
-    grid-area: "logo";
+    grid-area: logo;
     padding-left: 10%;
 }
 
 .img-logo{ width: 70%;}
 
-.search {grid-area: "search";}
-
 .categories
 {
-    grid-area: "categories";
+    grid-area: categories;
     display: flex;
-    align-items: center;
     flex-direction: column;
 }
 
+.categories-title
+{
+    display: flex;
+    flex-direction: row;
+}
+
 .categories h3 {cursor: pointer;}
+
+.img-categories
+{
+    width: 6%;
+    padding-left: 2%;
+}
 
 .categories ul {
     list-style-type: none;
     padding: 0;
     margin-top: 50px;
-    width: 200px;
+    width: 275px;
     background-color:#1c1c5ac2;
     cursor: pointer;
     position: absolute;
     z-index: 1001;
+    font-size: large;
 }
 
 .categories li {
@@ -67,25 +95,9 @@ p{
 
 .categoryImg
 {
-    width: 20px;
-    height: 20px;
+    width: 35px;
+    height: 35px;
     padding-right: 10%;
-}
-
-.h3
-{
-    font-size: xx-large;
-    font-weight: bold;
-    font-variant: small-caps;
-    color: #e6e6fd;
-}
-
-.h1
-{
-    font-size: xx-large;
-    font-weight: bold;
-    font-variant: small-caps;
-    color: #1C1C5A;
 }
 
 .main
@@ -93,8 +105,35 @@ p{
     padding-top: 1%;
     padding-bottom: 1%;
     display: flex;
+    flex-direction: column;
     flex-wrap: wrap;
     align-items: center;
+    justify-content: center;
+}
+
+.search 
+{
+    display: grid;
+    width: 55%;
+    grid-template-areas: 
+    "input remove";
+    padding-bottom: 1%;
+}
+
+.date
+{
+    grid-area: "input";
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    width: 100%;
+}
+
+.remove
+{
+    grid-area: "remove";
+    display: flex;
     justify-content: center;
 }
 
@@ -114,12 +153,13 @@ p{
 }
 
 .event-info{
+    display: none;
     list-style: none;
     width: 50%;
     padding-bottom: 1%;
 }
 
-.general-box div{width: 60%;}
+.general-box div:not(.close){width: 60%;}
 
 .general-box {
     width: 100%;
@@ -129,6 +169,7 @@ p{
     flex-direction: column;
     align-items: flex-start;
     justify-content: space-around;
+    padding: 0% 2% 4% 2%;
 }
 
 .general-box li{
@@ -137,10 +178,44 @@ p{
     width: 100%;
 }
 
-#map 
-{ 
-    height: 650px;
-    width: 60%;
+.close{
+    cursor: pointer;
+    width: 30px;
+    height: 30px;
+    position: relative;
+    top: 3px;
+    left: 95%;
+}
+.close img
+{
+    width: 30px;
+    height: 30px;
+}
+
+#map2d, #map3d {
+    height: 600px;
+    width: 100%;
+    display: none;
+}
+
+#map2d.active, #map3d.active {
+    display: block;
+}
+
+.cesium-container {
+    height: 600px;
+    width: 100%;
+}
+
+#toggleButton {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    z-index: 1000;
+    padding: 10px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    cursor: pointer;
 }
 
 .footer

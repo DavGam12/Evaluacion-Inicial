@@ -16,32 +16,48 @@
         <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
         integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
         crossorigin=""></script>
+        <script src="https://cesium.com/downloads/cesiumjs/releases/1.107/Build/Cesium/Cesium.js"></script><!--Script del mapa-->
         <title>Initial Evaluation</title>
     </head>
     <body>
         <header class="header">
-            <div class="header-logo">
-                <img class="img-logo" src="./Images/Logo.png" alt="Logo">
-            </div>
-            <div class="search">
-                <h3 class="h3"><input type="date" id="search_date_start" name="searchDateStart"/></h3>
-                <p><button id="submitFilter">Submit</button></p>
-                <h3 class="h3"><input type="date" id="search_date_end" name="searchDateEnd"/></h3>
-            </div>
 
             <div class="categories">
-                <h3 class="h3">Categories</h3>
+                <div class="categories-title">
+                    <h3 class="h3">Categories</h3>
+                    <img class="img-categories" src="./Images/menu-desplegable.png" alt="categories">
+                </div>
+
                 <ul class="desplegable"></ul>
             </div>
 
-            <div><button id="removeAllFilters">Remove All Filters</button></div>
+            <div class="map">
+                <button id="toggleButton">Cambiar a 3D</button>
+            </div>
+
+            <div class="header-logo">
+                <img class="img-logo" src="./Images/Logo.png" alt="Logo">
+            </div>
+
         </header>
         
         <main class="main">
-                <div class="event-info"></div>
+
+            <div class="search">
+                <div class="date">
+                    <input type="date" id="search_date_start" name="searchDateStart"/>
+                    <button id="submitFilter">Submit</button>
+                    <input type="date" id="search_date_end" name="searchDateEnd"/>
+                </div>
+
+                <div class="remove"><button id="removeAllFilters">Remove All Filters</button></div>                
             </div>
-            
-            <div id="map"></div>
+
+            <div class="event-info"></div>
+
+            <div id="map2d" class="active"></div> 
+
+            <div id="map3d" class="cesium-container"></div>
 
         </main>
 
