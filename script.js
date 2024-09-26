@@ -1,4 +1,9 @@
-let map // mapX = y; mapY = x
+/* 3D MAP */
+// mapX = y; mapY = x
+// Inicializar el mapa 2D usando Leaflet
+//const L = window.L
+let map2d
+
 let categoriesIconsData
 let currentLocData
 const categories =
@@ -32,12 +37,66 @@ let submitFilterButton
 
 document.addEventListener("DOMContentLoaded", () => {
     console.log("DOM content loaded")
-
-    map = L.map('map').setView([41.669841685814625, -0.8788074741911481], 10);
     
-    L.marker([41.669841685814625, -0.8788074741911481]).addTo(map).bindPopup('San Valero Is Here')
+    document.getElementById('toggleButton').addEventListener('click', () => {
+        document.getElementsByClassName('cesium-button')[6].click()
+        document.getElementsByClassName('cesium-baseLayerPicker-item')[7].click()
+    })
 
-    map.on('click', async(ev) => {
+    map2d = L.map('map2d').setView([41.669841685814625, -0.8788074741911481], 10); // Coordenadas de Centro San Valero
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        attribution: '© OpenStreetMap contributors'
+    }).addTo(map2d);
+
+    // Asegurar que el mapa 2D se inicialice correctamente después de ser visible
+    setTimeout(function() {
+        map2d.invalidateSize();
+    }, 100);
+
+    // Inicializar CesiumJS para el mapa 3D
+    var map3d = new Cesium.Viewer('map3d', {
+        timeline: false,
+        animation: false,
+        baseLayerPicker: true, // Permite cambiar entre diferentes capas de mapa
+        geocoder: true // Barra de búsqueda para encontrar ubicaciones
+    });
+
+    // Mostrar el mapa 2D por defecto
+    document.getElementById('map2d').classList.add('active');
+
+    // Alternar entre 2D y 3D con el botón
+    var toggleButton = document.getElementById('toggleButton');
+    var is3DActive = false;
+
+    toggleButton.addEventListener('click', function() {
+        if (is3DActive) {
+            // Cambiar a 2D
+            document.getElementById('map3d').classList.remove('active');
+            document.getElementById('map2d').classList.add('active');
+            toggleButton.innerText = 'Cambiar a 3D';
+            setTimeout(function() {
+                map2d.invalidateSize(); // Asegurar que el mapa 2D se renderice bien
+            }, 100);
+        } else {
+            // Cambiar a 3D
+            document.getElementById('map2d').classList.remove('active');
+            document.getElementById('map3d').classList.add('active');
+            toggleButton.innerText = 'Cambiar a 2D';
+            setTimeout(function() {
+                map3d.resize(); // Asegurar que el mapa 3D se renderice bien
+            }, 100);
+        }
+        is3DActive = !is3DActive;
+    });
+
+    document.getElementsByClassName('cesium-viewer-bottom')[0].remove() // delete 3D map credits
+
+    
+    L.marker([41.669841685814625, -0.8788074741911481]).addTo(map2d).bindPopup('San Valero Is Here')
+
+    map2d.on('click', async(ev) => {
         await fetchWeather(ev.latlng.toString().split('(')[1].split(')')[0])
         Array.from(document.getElementsByTagName('img')).filter((e) => e.alt === 'tempMarker').forEach(e => {e.remove();})
 
@@ -51,12 +110,12 @@ document.addEventListener("DOMContentLoaded", () => {
         
         if (currentLocData.error)
             {
-                await L.marker(ev.latlng, {icon: currentPosIcon, alt: 'tempMarker'}).addTo(map)
+                await L.marker(ev.latlng, {icon: currentPosIcon, alt: 'tempMarker'}).addTo(map2d)
                 .bindPopup(`This location isn't available`).openPopup()
             }
             else
             {
-                await L.marker(ev.latlng, {icon: currentPosIcon, alt: 'tempMarker'}).addTo(map)
+                await L.marker(ev.latlng, {icon: currentPosIcon, alt: 'tempMarker'}).addTo(map2d)
                 .bindPopup(`${currentLocData.location.name} [${ev.latlng.toString().split('(')[1].split(')')[0]}]`).openPopup()
 
                 const mainBox = document.getElementsByClassName("event-info")[0].appendChild(document.createElement("ul"))
@@ -132,8 +191,8 @@ document.addEventListener("DOMContentLoaded", () => {
     "Open ESRI Street Map": esriLayer
     };
 
-    osmLayer.addTo(map);
-    L.control.layers(baseLayers).addTo(map);
+    osmLayer.addTo(map2d);
+    L.control.layers(baseLayers).addTo(map2d);
 
 
     submitFilterButton = document.getElementById('submitFilter')
@@ -378,7 +437,7 @@ const eventsFetch = async(data) => {
             const iconUrlId = i.options.iconUrl.split('/')[2].split('.')
             if (iconUrlId[0].includes(e.categories[0].id))
             {
-                const iconMarker = L.marker([e.geometry[0].coordinates[1], e.geometry[0].coordinates[0]], {icon: i}).addTo(map)
+                const iconMarker = L.marker([e.geometry[0].coordinates[1], e.geometry[0].coordinates[0]], {icon: i}).addTo(map2d)
                 .bindPopup(`[${e.geometry[0].coordinates[1]},${e.geometry[0].coordinates[0]}]`)
                 .addEventListener("click", () => {
                     Array.from(document.getElementsByClassName("show")).forEach(shown => {
