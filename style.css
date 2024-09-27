@@ -326,8 +326,6 @@ p{
     justify-content: space-around;
 }
 
-.about-us{cursor: pointer;}
-
 /* Hide/Show */ 
 .hide{display: none;}
 .show{display: flex;}
