@@ -4,6 +4,8 @@
 //const L = window.L
 let map2d
 
+let generalData
+let eventsData
 let categoriesIconsData
 let currentLocData
 const categories =
@@ -37,10 +39,25 @@ let submitFilterButton
 
 document.addEventListener("DOMContentLoaded", () => {
     console.log("DOM content loaded")
+    var toggleButton = document.getElementById('toggleButton');
+    const header = document.getElementsByTagName('header')[0]
     
-    document.getElementById('toggleButton').addEventListener('click', () => {
+    toggleButton.addEventListener('click', () => {
         document.getElementsByClassName('cesium-button')[6].click()
         document.getElementsByClassName('cesium-baseLayerPicker-item')[7].click()
+
+        if (toggleButton.children[0].textContent.includes('3D'))
+            {
+                document.getElementsByClassName('categories')[0].style.display = 'none'
+                header.classList.remove('header')
+                header.classList.add('headerWithoutFilter')
+            }
+            else
+            {
+                document.getElementsByClassName('categories')[0].style.display = 'flex'
+                header.classList.remove('headerWithoutFilter')
+                header.classList.add('header')
+            }
     })
 
     map2d = L.map('map2d').setView([41.669841685814625, -0.8788074741911481], 10); // Coordenadas de Centro San Valero
@@ -67,7 +84,6 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById('map2d').classList.add('active');
 
     // Alternar entre 2D y 3D con el botón
-    var toggleButton = document.getElementById('toggleButton');
     var is3DActive = false;
 
     toggleButton.addEventListener('click', function() {
@@ -75,7 +91,7 @@ document.addEventListener("DOMContentLoaded", () => {
             // Cambiar a 2D
             document.getElementById('map3d').classList.remove('active');
             document.getElementById('map2d').classList.add('active');
-            toggleButton.innerText = 'Cambiar a 3D';
+            toggleButton.children[0].innerText = 'Cambiar a 3D';
             setTimeout(function() {
                 map2d.invalidateSize(); // Asegurar que el mapa 2D se renderice bien
             }, 100);
@@ -83,7 +99,7 @@ document.addEventListener("DOMContentLoaded", () => {
             // Cambiar a 3D
             document.getElementById('map2d').classList.remove('active');
             document.getElementById('map3d').classList.add('active');
-            toggleButton.innerText = 'Cambiar a 2D';
+            toggleButton.children[0].innerText = 'Cambiar a 2D';
             setTimeout(function() {
                 map3d.resize(); // Asegurar que el mapa 3D se renderice bien
             }, 100);
@@ -96,8 +112,9 @@ document.addEventListener("DOMContentLoaded", () => {
     
     L.marker([41.669841685814625, -0.8788074741911481]).addTo(map2d).bindPopup('San Valero Is Here')
 
+
     map2d.on('click', async(ev) => {
-        await fetchWeather(ev.latlng.toString().split('(')[1].split(')')[0])
+        currentLocData = await fetchWeather(ev.latlng.toString().split('(')[1].split(')')[0])
         Array.from(document.getElementsByTagName('img')).filter((e) => e.alt === 'tempMarker').forEach(e => {e.remove();})
 
         let currentPosIcon
@@ -115,63 +132,75 @@ document.addEventListener("DOMContentLoaded", () => {
             }
             else
             {
+                document.body.style.pointerEvents = 'none'
+
                 await L.marker(ev.latlng, {icon: currentPosIcon, alt: 'tempMarker'}).addTo(map2d)
                 .bindPopup(`${currentLocData.location.name} [${ev.latlng.toString().split('(')[1].split(')')[0]}]`).openPopup()
 
                 const mainBox = document.getElementsByClassName("event-info")[0].appendChild(document.createElement("ul"))
-                mainBox.classList.add('general-box')
+                mainBox.classList.add('generalDoubleColumnBox')
                 mainBox.classList.add("show")
+                mainBox.style.pointerEvents = 'all'
 
                 const closeDiv = mainBox.appendChild(document.createElement('div'))
                 closeDiv.classList.add('close')
                 const closeImg = closeDiv.appendChild(document.createElement('img'))
                 closeImg.src = '/Images/close.png'
                 closeDiv.addEventListener('click', () => {
+                    document.body.style.pointerEvents = 'all'
                     closeDiv.parentElement.remove()
+                    Array.from(document.getElementsByClassName('leaflet-popup-close-button')).forEach(closeButton => {closeButton.click()})
+                    Array.from(document.getElementsByTagName('img')).filter((e) => e.alt === 'tempMarker').forEach(e => {e.remove();})
                 })
+
+                const firstBox = mainBox.appendChild(document.createElement('div'))
+                firstBox.classList.add('generalChildBox')
+                const secondBox = mainBox.appendChild(document.createElement('div'))
+                secondBox.classList.add('generalChildBox')
         
-                const city = mainBox.appendChild(document.createElement('li'))
+                const city = firstBox.appendChild(document.createElement('li'))
                 city.appendChild(document.createElement('h3')).textContent = 'City: '
                 city.appendChild(document.createElement('p')).textContent = currentLocData.location.name
 
-                const country = mainBox.appendChild(document.createElement('li'))
+                const country = firstBox.appendChild(document.createElement('li'))
                 country.appendChild(document.createElement('h3')).textContent = 'Country: '
                 country.appendChild(document.createElement('p')).textContent = currentLocData.location.country
 
-                const coor = mainBox.appendChild(document.createElement('li'))
+                const coor = firstBox.appendChild(document.createElement('li'))
                 coor.appendChild(document.createElement('h3')).textContent = 'Coordinates: '
                 coor.appendChild(document.createElement('p')).textContent = `[${ev.latlng.toString().split('(')[1].split(')')[0]}]`
 
-                const localtime = mainBox.appendChild(document.createElement('li'))
+                const localtime = firstBox.appendChild(document.createElement('li'))
                 localtime.appendChild(document.createElement('h3')).textContent = 'Localtime: '
                 localtime.appendChild(document.createElement('p')).textContent = currentLocData.location.localtime
 
-                const temperature = mainBox.appendChild(document.createElement('li'))
+                const humidity = firstBox.appendChild(document.createElement('li'))
+                humidity.appendChild(document.createElement('h3')).textContent = 'Humidity: '
+                humidity.appendChild(document.createElement('p')).textContent = `${currentLocData.current.humidity}%`
+
+                const temperature = secondBox.appendChild(document.createElement('li'))
                 temperature.appendChild(document.createElement('h3')).textContent = 'Temperature: '
                 temperature.appendChild(document.createElement('p')).textContent = `${currentLocData.current.temp_c}ºC`
 
-                const feellikeTemperature = mainBox.appendChild(document.createElement('li'))
+                const feellikeTemperature = secondBox.appendChild(document.createElement('li'))
                 feellikeTemperature.appendChild(document.createElement('h3')).textContent = 'Feel like temperature: '
                 feellikeTemperature.appendChild(document.createElement('p')).textContent = `${currentLocData.current.feelslike_c}ºC`
 
-                const wind = mainBox.appendChild(document.createElement('li'))
+                const wind = secondBox.appendChild(document.createElement('li'))
                 wind.appendChild(document.createElement('h3')).textContent = 'Wind: '
                 wind.appendChild(document.createElement('p')).textContent = `${currentLocData.current.wind_kph} km/h`
                 
-                const windDir = mainBox.appendChild(document.createElement('li'))
+                const windDir = secondBox.appendChild(document.createElement('li'))
                 windDir.appendChild(document.createElement('h3')).textContent = 'Wind direction: '
                 windDir.appendChild(document.createElement('p')).textContent = `${currentLocData.current.wind_kph} km/h`
 
-                const gust = mainBox.appendChild(document.createElement('li'))
+                const gust = secondBox.appendChild(document.createElement('li'))
                 gust.appendChild(document.createElement('h3')).textContent = 'Gust: '
                 gust.appendChild(document.createElement('p')).textContent = `${currentLocData.current.gust_kph} km/h`
-
-                const humidity = mainBox.appendChild(document.createElement('li'))
-                humidity.appendChild(document.createElement('h3')).textContent = 'Humidity: '
-                humidity.appendChild(document.createElement('p')).textContent = `${currentLocData.current.humidity}%`
             }
         console.log(ev.latlng);
     })
+
 
     osmLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '© OpenStreetMap contributors'
@@ -265,29 +294,32 @@ const HideShowIcons = (cat, img) => {
 
 /* FETCH */
 
-const categoriesURL = "https://eonet.gsfc.nasa.gov/api/v3/categories"
-const eventURL = "https://eonet.gsfc.nasa.gov/api/v3/events"
+/*const categoriesURL = "https://eonet.gsfc.nasa.gov/api/v3/categories"
+const eventURL = "https://eonet.gsfc.nasa.gov/api/v3/events"*/
 const categoriesIconsURL = `${window.location.origin}/icons.json`
 
 const fetchWeather = async(coor) => {
-    const weatherURL = `https://api.weatherapi.com/v1/current.json?key=3212cc342f1b43fe9ab184207242509%20&q=${coor}`
+    const weatherURL = `http://localhost:3000/weather/${coor}`
     const weatherRes = await fetch(weatherURL)
-    currentLocData = await weatherRes.json()
+    const weatherData = await weatherRes.json()
+    console.log(weatherData);
+    return await weatherData
 }
 
 const fetchData = async() => {
-    const [ categoriesRes, eventsRes, categoriesIconsRes ] = await Promise.all([fetch(categoriesURL), fetch(eventURL), fetch(categoriesIconsURL)])
+    const generalRes = await fetch('http://localhost:3000/')
+    generalData = await generalRes.json()
+    const categoriesIconsRes = await fetch(categoriesIconsURL)
 
-    const categoriesData = await categoriesRes.json()
-    const eventsData = await eventsRes.json()
     categoriesIconsData = await categoriesIconsRes.json()
 
-    console.log('categoriesData -->', categoriesData);
-    console.log('eventsData -->', eventsData);
+    console.log('categoriesData -->', generalData.categories);
+    console.log('eventsData -->', generalData.events);
     console.log('categoriesIconsData -->', categoriesIconsData);
+    console.log('generalData -->', generalData);
 
-    categoriesFetch(categoriesData)
-    eventsFetch(eventsData)
+    categoriesFetch(generalData.categories)
+    eventsFetch(generalData.events)
 }
 
 const categoriesFetch = async(data) => {
@@ -400,6 +432,7 @@ const eventsFetch = async(data) => {
         const closeImg = closeDiv.appendChild(document.createElement('img'))
         closeImg.src = '/Images/close.png'
         closeDiv.addEventListener('click', () => {
+            document.body.style.pointerEvents = 'all'
             closeDiv.parentElement.classList.remove("show")
             closeDiv.parentElement.classList.add("hide")
         })
@@ -440,12 +473,16 @@ const eventsFetch = async(data) => {
                 const iconMarker = L.marker([e.geometry[0].coordinates[1], e.geometry[0].coordinates[0]], {icon: i}).addTo(map2d)
                 .bindPopup(`[${e.geometry[0].coordinates[1]},${e.geometry[0].coordinates[0]}]`)
                 .addEventListener("click", () => {
+                    Array.from(document.getElementsByClassName('leaflet-popup-close-button')).forEach(closeButton => {closeButton.click()})
+                    document.body.style.pointerEvents = 'none'
+                    mainBox.style.pointerEvents = 'all'
                     Array.from(document.getElementsByClassName("show")).forEach(shown => {
                         shown.classList.remove("show")
                         shown.classList.add("hide")
                     })
                     mainBox.classList.remove("hide")
                     mainBox.classList.add("show")
+                    console.log(mainBox);
                 })
                 iconMarker._icon.alt = 'mapIcon'
                 events[index] =
