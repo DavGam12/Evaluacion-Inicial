@@ -7,27 +7,27 @@
   "dustHaze": {
 	"id": "dustHaze",
 	"url": "/Images/dustHaze.png",
-  "color": "rgb(100,100,100)"
+  "color": "#B1B1B1"
   },
   "earthquakes": {
 	"id": "earthquakes",
 	"url": "/Images/earthquakes.png",
-  "color": "rgb(130,40,40)"
+  "color": "#D2691E"
   },
   "floods": {
 	"id": "floods",
 	"url": "/Images/floods.png",
-  "color": "rgb(60,60,255)"
+  "color": "#00BFFF"
   },
   "landslides": {
 	"id": "landslides",
 	"url": "/Images/landslides.png",
-  "color": "rgb(200,200,200)"
+  "color": "#98FB98"
   },
   "manmade": {
 	"id": "manmade",
 	"url": "/Images/manmade.png",
-  "color": "rgb(130,150,155)"
+  "color": "#A46335"
   },
   "seaLakeIce": {
 	"id": "seaLakeIce",
@@ -37,7 +37,7 @@
   "severeStorms": {
 	"id": "severeStorms",
 	"url": "/Images/severeStorms.png",
-  "color": "rgb(25,25,25)"
+  "color": "#B0C4DE"
   },
   "snow": {
 	"id": "snow",
@@ -47,17 +47,17 @@
   "tempExtremes": {
 	"id": "tempExtremes",
 	"url": "/Images/tempExtremes.png",
-  "color": "rgb(120,0,120)"
+  "color": "#708090"
   },
   "volcanoes": {
 	"id": "volcanoes",
 	"url": "/Images/volcanoes.png",
-  "color": "rgb(150,0,0)"
+  "color": "#FF4500"
   },
   "waterColor": {
 	"id": "waterColor",
 	"url": "/Images/waterColor.png",
-  "color": "rgb(0,120,120)"
+  "color": "#00D5B8"
   },
   "wildfires": {
 	"id": "wildfires",

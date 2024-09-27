@@ -20,6 +20,7 @@
         <script src="https://cesium.com/downloads/cesiumjs/releases/1.107/Build/Cesium/Cesium.js"></script><!--Script del mapa-->
         <title>Initial Evaluation</title>
     </head>
+    
     <body>
         <header class="header">
 
@@ -28,12 +29,11 @@
                     <h3 class="h3">Categories</h3>
                     <img class="img-categories" src="./Images/menu-desplegable.png" alt="categories">
                 </div>
-
                 <ul class="desplegable"></ul>
             </div>
 
             <div class="map">
-                <button id="toggleButton">Cambiar a 3D</button>
+                <button id="toggleButton"><h3 class="h3">Cambiar a 3D</h3></button>
             </div>
 
             <div class="header-logo">
@@ -46,12 +46,12 @@
 
             <div class="search">
                 <div class="date">
-                    <input type="date" id="search_date_start" name="searchDateStart"/>
-                    <button id="submitFilter">Submit</button>
-                    <input type="date" id="search_date_end" name="searchDateEnd"/>
+                    <input type="date" id="search_date_start" class="buton-text" name="searchDateStart"/>
+                    <button id="submitFilter" class="buton-text">Submit</button>
+                    <input type="date" id="search_date_end" class="buton-text" name="searchDateEnd"/>
                 </div>
 
-                <div class="remove"><button id="removeAllFilters">Remove All Filters</button></div>                
+                <div class="remove"><button id="removeAllFilters" class="buton-text">Remove All Filters</button></div>                
             </div>
 
             <div class="event-info"></div>

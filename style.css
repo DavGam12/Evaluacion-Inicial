@@ -5,6 +5,7 @@ body { background-color: #B0E0E6; }
 .h3
 {
     font-size: xx-large;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
     font-weight: bold;
     font-variant: small-caps;
     color: #e6e6fd;
@@ -18,8 +19,6 @@ body { background-color: #B0E0E6; }
     color: #1C1C5A;
 }
 
-
-
 p{
     margin-left: 2%;
     font-size: large;
@@ -31,11 +30,10 @@ p{
 {
     background-color: #9370DB;
     display: grid;
-    grid-template-columns: 2% 35% 35% 28%;
+    grid-template-columns: 1% 35% 35% 29%;
     grid-template-areas: 
-    ". categories . logo";
+    ". logo mapa categories";
     align-items: center;
-    justify-content: center;
 }
 
 .header-logo
@@ -46,24 +44,42 @@ p{
 
 .img-logo{ width: 70%;}
 
+.map
+{
+    grid-area: mapa;
+    display: flex;
+    justify-content: center;
+}
+
+#toggleButton 
+{
+    padding: 10px;
+    background-color: #1C1C5A;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
 .categories
 {
     grid-area: categories;
     display: flex;
     flex-direction: column;
+    align-items: center;
 }
 
 .categories-title
 {
     display: flex;
     flex-direction: row;
+    justify-content: center;
 }
 
 .categories h3 {cursor: pointer;}
 
 .img-categories
 {
-    width: 6%;
+    width: 8%;
     padding-left: 2%;
 }
 
@@ -130,6 +146,27 @@ p{
     width: 100%;
 }
 
+#search_date_start, #search_date_end, #removeAllFilters, #submitFilter
+{
+    padding: 7px;
+    border-radius: 10px;
+    background-color: #1C1C5A;
+    border: 1px solid #ccc;
+}
+
+::-webkit-calendar-picker-indicator {
+    filter: invert(1);
+}
+
+.buton-text
+{
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-size: large;
+    font-weight: bold;
+    font-variant: small-caps;
+    color: #e6e6fd;
+}
+
 .remove
 {
     grid-area: "remove";
@@ -153,7 +190,6 @@ p{
 }
 
 .event-info{
-    display: none;
     list-style: none;
     width: 50%;
     padding-bottom: 1%;
@@ -164,7 +200,10 @@ p{
 .general-box {
     width: 100%;
     height: 100%;
-    border: 5px solid black;
+    background-color: #e6e6fdbd;
+    color: #1C1C5A;
+    border-radius: 10px;
+    box-shadow: 2px 2px 2px 2px #9370DB;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -194,8 +233,10 @@ p{
 
 #map2d, #map3d {
     height: 600px;
-    width: 100%;
+    width: 60%;
     display: none;
+    border-radius: 20px;
+    box-shadow: 2px 2px 2px 2px #1C1C5A;
 }
 
 #map2d.active, #map3d.active {
@@ -205,17 +246,6 @@ p{
 .cesium-container {
     height: 600px;
     width: 100%;
-}
-
-#toggleButton {
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    z-index: 1000;
-    padding: 10px;
-    background-color: #fff;
-    border: 1px solid #ccc;
-    cursor: pointer;
 }
 
 .footer
