@@ -251,6 +251,29 @@ p{
 .footer
 {
     background-color: #9370DB;
+    display: grid;
+    grid-template-areas: 
+    "images text";
+    padding: 0.5%;
+}
+
+.footer-img
+{
+    grid-area: images;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.img-foot{width: 35%;}
+
+.footer-text
+{
+    grid-area: text;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
 }
 
 /* Hide/Show */ 
