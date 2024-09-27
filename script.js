@@ -51,12 +51,14 @@ document.addEventListener("DOMContentLoaded", () => {
                 document.getElementsByClassName('categories')[0].style.display = 'none'
                 header.classList.remove('header')
                 header.classList.add('headerWithoutFilter')
+                document.getElementsByClassName('search')[0].style.display = 'none'
             }
             else
             {
                 document.getElementsByClassName('categories')[0].style.display = 'flex'
                 header.classList.remove('headerWithoutFilter')
                 header.classList.add('header')
+                document.getElementsByClassName('search')[0].style.display = 'grid'
             }
     })
 
