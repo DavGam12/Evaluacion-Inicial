@@ -1,0 +1,331 @@
+img{width: 100%;}
+
+body { background-color: #B0E0E6; }
+
+.h3
+{
+    font-size: xx-large;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-weight: bold;
+    font-variant: small-caps;
+    color: #e6e6fd;
+}
+
+.h1
+{
+    font-size: xx-large;
+    font-weight: bold;
+    font-variant: small-caps;
+    color: #1C1C5A;
+}
+
+p{
+    margin-left: 2%;
+    font-size: large;
+    font-variant: small-caps;
+    color: #1C1C5A;
+}
+
+.header
+{
+    background-color: #9370DB;
+    display: grid;
+    grid-template-columns: 1% 35% 35% 29%;
+    grid-template-areas: 
+    ". logo mapa categories";
+    align-items: center;
+}
+
+.headerWithoutFilter
+{
+    background-color: #9370DB;
+    display: grid;
+    grid-template-columns: 1% 35% 29% 35%;
+    grid-template-areas: 
+    ". logo . mapa";
+    align-items: center;
+}
+
+.header-logo
+{
+    grid-area: logo;
+    padding-left: 10%;
+}
+
+.img-logo
+{
+    width: 70%;
+    cursor: pointer;
+}
+
+.map
+{
+    grid-area: mapa;
+    display: flex;
+    justify-content: center;
+}
+
+#toggleButton 
+{
+    padding: 10px;
+    background-color: #1C1C5A;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.categories
+{
+    grid-area: categories;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.categories-title
+{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.categories h3 {cursor: pointer;}
+
+.img-categories
+{
+    width: 8%;
+    padding-left: 2%;
+}
+
+.categories ul {
+    list-style-type: none;
+    padding: 0;
+    margin-top: 50px;
+    width: 275px;
+    background-color:#1c1c5ac2;
+    cursor: pointer;
+    position: absolute;
+    z-index: 1001;
+    font-size: large;
+}
+
+.categories li {
+    padding: 10px;
+    border-bottom: 1px solid #e6e6fd;
+    display: none;
+    align-items: center;
+    color: #e6e6fd;
+}
+
+.categories li:hover 
+{ 
+    background-color: #e6e6fd;
+    color: #000;
+}
+
+.categoryImg
+{
+    width: 35px;
+    height: 35px;
+    padding-right: 10%;
+}
+
+.main
+{
+    padding-top: 1%;
+    padding-bottom: 1%;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+}
+
+.search 
+{
+    display: grid;
+    width: 55%;
+    grid-template-areas: 
+    "input remove";
+    padding-bottom: 1%;
+}
+
+.date
+{
+    grid-area: "input";
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    width: 100%;
+}
+
+#search_date_start, #search_date_end, #removeAllFilters, #submitFilter
+{
+    padding: 7px;
+    border-radius: 10px;
+    background-color: #1C1C5A;
+    border: 1px solid #ccc;
+    cursor: pointer;
+}
+
+::-webkit-calendar-picker-indicator {
+    filter: invert(1);
+}
+
+.buton-text
+{
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-size: large;
+    font-weight: bold;
+    font-variant: small-caps;
+    color: #e6e6fd;
+}
+
+.remove
+{
+    grid-area: "remove";
+    display: flex;
+    justify-content: center;
+}
+
+.ul
+{
+    font-size: larger;
+    font-variant: small-caps;
+}
+
+.ul li{display: table;}
+
+.ul li:hover
+{
+    font-weight: bold;
+    cursor: pointer;
+    color: #1C1C5A;
+}
+
+.event-info{
+    list-style: none;
+    width: 50%;
+    padding-bottom: 1%;
+}
+
+.general-box div:not(.close){width: 60%;}
+
+.general-box {
+    width: 50%;
+    background-color: #e6e6fdbd;
+    color: #1C1C5A;
+    border-radius: 10px;
+    box-shadow: 2px 2px 2px 2px #9370DB;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-around;
+    padding: 3% 2% 4% 2%;
+    z-index: 1500;
+    position: absolute;
+    top: 23%;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.generalDoubleColumnBox
+{
+    width: 50%;
+    background-color: #e6e6fdbd;
+    color: #1C1C5A;
+    border-radius: 10px;
+    box-shadow: 2px 2px 2px 2px #9370DB;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    padding: 3% 2% 4% 2%;
+    z-index: 1500;
+    position: absolute;
+    top: 23%;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.generalChildBox
+{
+    display: flex;
+    width: 50%;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-around;
+}
+
+.general-box li{
+    padding: 0.75% 2%;
+    display: flex;
+    width: 100%;
+}
+
+.close{
+    cursor: pointer;
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    top: 3px;
+    left: 95%;
+}
+.close img
+{
+    width: 30px;
+    height: 30px;
+}
+
+#map2d, #map3d {
+    height: 600px;
+    width: 60%;
+    display: none;
+    border-radius: 20px;
+    box-shadow: 2px 2px 2px 2px #1C1C5A;
+}
+
+#map2d.active, #map3d.active {
+    display: block;
+}
+
+.cesium-container {
+    height: 600px;
+    width: 100%;
+}
+
+.footer
+{
+    background-color: #9370DB;
+    display: grid;
+    grid-template-areas: 
+    "images text";
+    padding: 0.5%;
+}
+
+.footer-img
+{
+    grid-area: images;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.img-foot
+{
+    width: 35%;
+    cursor: pointer;
+}
+
+.footer-text
+{
+    grid-area: text;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+/* Hide/Show */ 
+.hide{display: none;}
+.show{display: flex;}

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="author" content="Alejandra Chaves">
+        <meta name="author" content="Trasti Gonzalez">
+        <meta name="author" content="David Gamiz">
+        <link rel="icon" type="image/x-icon" href="./Images/Logo_Pagina.png">
+        <link rel="stylesheet" href="reset.css">
+        <link rel="stylesheet" href="style.css">
+        <script type="text/javascript" src="script.js"></script>
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+        crossorigin=""/>
+        <link rel="stylesheet" href="https://cesium.com/downloads/cesiumjs/releases/1.107/Build/Cesium/Widgets/widgets.css" />
+        <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+        crossorigin=""></script>
+        <script src="https://cesium.com/downloads/cesiumjs/releases/1.107/Build/Cesium/Cesium.js"></script><!--Script del mapa-->
+        <title>Initial Evaluation</title>
+    </head>
+    
+    <body>
+        <header class="header">
+
+            <div class="categories">
+                <div class="categories-title">
+                    <h3 class="h3">Categories</h3>
+                    <img class="img-categories" src="./Images/menu-desplegable.png" alt="categories">
+                </div>
+                <ul class="desplegable"></ul>
+            </div>
+
+            <div class="map">
+                <button id="toggleButton"><h3 class="h3">Cambiar a 3D</h3></button>
+            </div>
+
+            <div class="header-logo">
+                <a href="main.html"> <img class="img-logo" src="./Images/Logo.png" alt="Logo"></a>
+            </div>
+
+        </header>
+        
+        <main class="main">
+
+            <div class="search">
+                <div class="date">
+                    <input type="date" id="search_date_start" class="buton-text" name="searchDateStart"/>
+                    <button id="submitFilter" class="buton-text">Submit</button>
+                    <input type="date" id="search_date_end" class="buton-text" name="searchDateEnd"/>
+                </div>
+
+                <div class="remove"><button id="removeAllFilters" class="buton-text">Remove All Filters</button></div>                
+            </div>
+
+            <div class="event-info"></div>
+
+            <div id="map2d" class="active"></div> 
+
+            <div id="map3d" class="cesium-container"></div>
+
+        </main>
+
+        <footer class="footer">
+            <div class="footer-img">
+                <div class="eonet-logo"><a href="./main.html"><img class="img-foot" src="./Images/Logo.png" alt="logo"></a></div>
+                <a href="https://www.spaceappschallenge.org/" target="_blank"><img class="img-foot" src="./Images/LogoNASA.png" alt="nasa space apps"></div></a>
+            </div>
+            <div class="footer-text">
+                <div class="appi"><a class="h3" href="https://eonet.gsfc.nasa.gov/what-is-eonet" target="_blank">API EONET</a></div>
+                <div class="appi"><a class="h3" href="https://leafletjs.com/" target="_blank">API Leaflet</a></div>
+                <div class="about-us"><a href="./aboutus.html" class="h3">About Us</a></div>
+            </div>
+
+        </footer>
+    </body>
+</html>
