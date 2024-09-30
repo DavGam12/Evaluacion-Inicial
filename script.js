@@ -301,7 +301,7 @@ const eventURL = "https://eonet.gsfc.nasa.gov/api/v3/events"*/
 const categoriesIconsURL = `${window.location.origin}/icons.json`
 
 const fetchWeather = async(coor) => {
-    const weatherURL = `http://localhost:3000/weather/${coor}`
+    const weatherURL = `http://localhost:3000/weather?coor=${coor}`
     const weatherRes = await fetch(weatherURL)
     const weatherData = await weatherRes.json()
     console.log(weatherData);

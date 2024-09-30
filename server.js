@@ -65,14 +65,13 @@ server.get('/categories', (req, res) => {
   
   res.json(categoriesData)
 })
-server.get('/weather/coor', async(req, res) => {
+server.get('/weather', async(req, res) => {
 
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader("Access-Control-Allow-Methods", "POST, GET, PUT");
   res.setHeader("Access-Control-Allow-Headers", "Content-Type");
 
-
-  const coor = req.params.coor
+  const coor = req.query.coor
   const weatherURL = `https://api.weatherapi.com/v1/current.json?key=3212cc342f1b43fe9ab184207242509%20&q=${coor}`
   const weatherRes = await fetch(weatherURL)
   currentLocData = await weatherRes.json()
